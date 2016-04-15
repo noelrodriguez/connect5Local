@@ -1,0 +1,56 @@
+html{
+	background: #25242C;
+}
+#main{
+	width: 100%;
+	margin: auto;
+	background: #32313B;
+}
+
+.header{
+	background: #25242C;
+	font-family: "Lucida Console", Monaco, monospace;
+	text-align: center;
+	color: #39B1C6;
+	margin-bottom: -10px;
+}
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+		background: white;
+		opacity: 0.9;
+		margin-bottom: 10px;
+}
+td{
+    width: 75px;
+    height: 75px;
+    text-align: center;
+}
+
+.player1{
+	outline: 5px solid #d9534f;
+	outline-offset: -8px;
+}
+
+.player2{
+	outline: 5px solid #f0ad4e;
+	outline-offset: -8px;
+}
+
+.testColor{
+	outline: 5px solid black;
+	outline-offset: -8px;
+}
+
+.playable{
+	outline: 5px solid #00FF66;
+	outline-offset: -8px;
+}
+
+footer{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #32313B;
+	color: #EC3F8C;
+}
