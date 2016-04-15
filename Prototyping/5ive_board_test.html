@@ -4,30 +4,68 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" type="text/css" href="5ive_board.css">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
 </head>
 <div class="header">
 <h1>Connect5</h1>
 </div>
 <body>
-<div id="main" align="center">
-	<table id="board">
-	</table>
-	<div class="btn-group" role="group" aria-label="...">
-	  <button type="button" class="btn btn-default" onclick="colorPlayable(0)">0</button>
-	  <button type="button" class="btn btn-default" onclick="colorPlayable(12)">12</button>
-	  <button type="button" class="btn btn-default" onclick="colorPlayable(50)">50</button>
-	  <button type="button" class="btn btn-default" onclick="colorPlayable(86)">86</button>
+
+<div id="main">
+	<div class="row">
+		<div class="col-md-7" style="background-color:green">
+			<div id="boardContainer">
+				<table id="board"></table>
+			</div>
+		</div>
+		<div class="col-md-5" style="background-color:blue">
+			<div id="discardContainer">
+				<table id="draw" class="scroll">
+					<thead>
+						<tr>
+							<th style="text-align:center">Turn Number</th>
+							<th style="text-align:center">Player</th>
+							<th style="text-align:center">Card Used</th>
+							<th style="text-align:center">Card Played</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-primary active disabled">
+					<input type="radio" name="options" id="player1" autocomplete="off">Player 1
+				</label>
+				<label class="btn btn-primary disabled">
+					<input type="radio" name="options" id="player2" autocomplete="off"> Radio 2
+				</label>
+				<label class="btn btn-primary disabled">
+					<input type="radio" name="options" id="player3" autocomplete="off"> Radio 3
+				</label>
+			</div>
+			<button type="button" class="btn btn-success" onclick="resetBoard(true)">Reset</button>
+			<button type="button" class="btn btn-danger" onclick="switchPlayer('player1')">Player 1</button>
+			<button type="button" class="btn btn-warning" onclick="switchPlayer('player2')">Player 2</button>
+		</div>
 	</div>
-	<button type="button" class="btn btn-success" onclick="resetBoard(true)">Reset</button>
-	<button type="button" class="btn btn-danger" onclick="switchPlayer('player1')">Player 1</button>
-	<button type="button" class="btn btn-warning" onclick="switchPlayer('player2')">Player 2</button>
+	<div class="row">
+		<div class="col-md-12" style="background-color:red">
+			<div class="btn-group" role="group" aria-label="...">
+	  		<button type="button" class="btn btn-default" onclick="colorPlayable(0)" >0</button>
+	  		<button type="button" class="btn btn-default" onclick="colorPlayable(12)">12</button>
+	  		<button type="button" class="btn btn-default" onclick="colorPlayable(50)">50</button>
+	  		<button type="button" class="btn btn-default" onclick="colorPlayable(86)">86</button>
+			</div>
+		</div>
+	</div>
 </div>
 
+
 </body>
-<footer>Created by: Elliott, Brandon, Brant, Noel</footer>
+<footer>Created by: Elliott, Brandon, Brant, Noel, Pushkin</footer>
 </html>
 
 <script>
@@ -53,6 +91,19 @@ function drawBoard() {
 		tableHTML += '</tr>';
 	}
 	document.getElementById("board").innerHTML = tableHTML;
+}
+
+function fillTable() {
+	var drawHTML = document.getElementById("draw").innerHTML;
+	drawHTML += "<tbody>";
+	for(var i = 0; i < 20; i++){
+		drawHTML += '<tr>';
+		for(var j = 0; j < 4; j++){
+			drawHTML += '<td>Content</td>'
+		}
+		drawHTML += '</tr>'
+	}
+	document.getElementById("draw").innerHTML = drawHTML;
 }
 
 function colorPlayed(element) {
@@ -96,7 +147,16 @@ function switchPlayer(playerNumber){
 }
 
 $(document).ready(function() {
-	drawBoard();
+	drawBoard()
+	fillTable();
 } );
 
+</script>
+<script>
+	var canvas = new fabric.Canvas("card");
+	var imgElement = document.getElementById("myCard");
+	var imgInstance = new fabric.Image(imgElement, {
+		left: 1, top: 1, angle: 45, opacity: 1.0
+	})
+	canvas.add(imgInstance);
 </script>
