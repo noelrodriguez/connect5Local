@@ -16,13 +16,11 @@ html{
 	color: #39B1C6;
 	margin-bottom: -10px;
 }
-table{
-
-}
 #board table, #board td{
-    border: 1px solid black;
+    border: 1px solid white;
     border-collapse: collapse;
-		background: white;
+		background: black;
+		color: white;
 		opacity: 0.9;
 }
 #board td{

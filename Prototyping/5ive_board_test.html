@@ -17,12 +17,12 @@
 
 <div id="main">
 	<div class="row">
-		<div class="col-md-7" style="background-color:green">
+		<div id="leftColumn" class="col-md-7" style="background-color:green">
 			<div id="boardContainer">
 				<table id="board"></table>
 			</div>
 		</div>
-		<div class="col-md-5" style="background-color:blue">
+		<div id="rightColumn" class="col-md-5" style="background-color:blue">
 			<div id="discardContainer">
 				<table id="draw" class="scroll">
 					<thead>
@@ -35,6 +35,8 @@
 					</thead>
 				</table>
 			</div>
+			<!--Clicking on the card right now just sets the player to player1 for testing purposes-->
+			<img src="/assets/images/CardBack.png" alt="Draw Card" style="width:100px;height:140px" onclick="switchPlayer('player1')">
 			<div class="btn-group" data-toggle="buttons">
 				<label class="btn btn-primary active disabled">
 					<input type="radio" name="options" id="player1" autocomplete="off">Player 1
@@ -146,9 +148,15 @@ function switchPlayer(playerNumber){
 	currentPlayer = playerNumber;
 }
 
+function getTableHeight() {
+	var height = document.getElementById("leftColumn");
+	document.getElementById("rightColumn").style.height = height.offsetHeight + "px";
+}
+
 $(document).ready(function() {
 	drawBoard()
 	fillTable();
+	getTableHeight();
 } );
 
 </script>
