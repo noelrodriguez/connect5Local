@@ -19,7 +19,7 @@ html{
 #board table, #board td{
     border: 1px solid white;
     border-collapse: collapse;
-		background: black;
+		background: gray;
 		color: white;
 		opacity: 0.9;
 }

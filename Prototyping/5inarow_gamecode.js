@@ -144,10 +144,31 @@ function fillLocation(playerNumber, locationNumber, cardNumber){
 
 //Returns true if there are 5 in a row
 function checkWinCondition(locationNumber, teamNumber){
-
+	//Check all four possible directions
+	var NW_SE = recursiveBoardSearch(locationNumber, teamNumber, 0) + recursiveBoardSearch(locationNumber, teamNumber, 4);
+	var N_S = recursiveBoardSearch(locationNumber, teamNumber, 1) + recursiveBoardSearch(locationNumber, teamNumber, 5);
+	var NE_SW = recursiveBoardSearch(locationNumber, teamNumber, 2) + recursiveBoardSearch(locationNumber, teamNumber, 6);
+	var W_E = recursiveBoardSearch(locationNumber, teamNumber, 3) + recursiveBoardSearch(locationNumber, teamNumber, 7);
+	console.log(NW_SE +" "+ N_S +" "+ NE_SW +" "+ W_E);
+	if (NW_SE >= 6 || N_S >= 6 || NE_SW >= 6 || W_E >= 6){
+		return true;
+	}
+	return false;
 }
 
-function recursiveBoardSearch(locationNumber, teamNumber){
+function recursiveBoardSearch(locationNumber, teamNumber, direction){
+	//if the location is not filled by the current team, return 0
+	if (gameBoard[locationNumber].teamFilled !== teamNumber) {
+		return 0;
+	} else {
+		//if it is, then check the next locaiton.
+		var tempDirection = gameBoard[locationNumber].adjacentLocations[direction];
+		//if the next location is undefined, it is out of the board so stop looking
+		if (tempDirection == undefined) {
+			return 1;
+		};
+		return (1 + recursiveBoardSearch(tempDirection, teamNumber, direction));
+	}
 
 }
 
@@ -184,7 +205,9 @@ function play_location(playerNumber, locationNumber, cardNumber){
 	fillLocation(playerNumber, locationNumber, cardNumber);
 	//Check for win
 	var teamNumber = allPlayers[playerNumber].teamNumber;
-	checkWinCondition(locationNumber, teamNumber);
+	if (checkWinCondition(locationNumber, teamNumber) == true){
+		console.log("WIN");
+	}
 	return true;
 }
 
