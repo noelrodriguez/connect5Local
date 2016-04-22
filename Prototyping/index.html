@@ -24,16 +24,7 @@
 		</div>
 		<div id="rightColumn" class="col-md-5" style="background-color:blue">
 			<div id="discardContainer">
-				<table align="center" id="draw" class="scroll">
-					<thead>
-						<tr>
-							<th style="text-align:center">Turn Number</th>
-							<th style="text-align:center">Player</th>
-							<th style="text-align:center">Card Used</th>
-							<th style="text-align:center">Card Played</th>
-						</tr>
-					</thead>
-				</table>
+
 			</div>
 			<!--Creates and centers the player button array and cards -->
 			<div align="center" id="playerArray" class="row">
@@ -52,6 +43,18 @@
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(12)">12</button>
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(50)">50</button>
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(86)">86</button>
+			</div>
+			<div id="bottomContainer">
+			<table align="center" id="draw" class="scroll">
+				<thead>
+					<tr>
+						<th style="text-align:center">Turn Number</th>
+						<th style="text-align:center">Player</th>
+						<th style="text-align:center">Card Used</th>
+						<th style="text-align:center">Card Played</th>
+					</tr>
+				</thead>
+			</table>
 			</div>
 		</div>
 	</div>
@@ -142,6 +145,7 @@ function switchPlayer(playerNumber){
 
 function getTableHeight() {
 	var height = document.getElementById("leftColumn");
+	alert(height.offsetHeight);
 	document.getElementById("rightColumn").style.height = height.offsetHeight + "px";
 }
 
