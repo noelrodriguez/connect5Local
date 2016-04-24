@@ -4,11 +4,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" type="text/css" href="5ive_board.css">
+<link rel="stylesheet" type="text/css" href="dataTable.css">
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs-3.3.6/dt-1.10.11/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/t/bs-3.3.6/dt-1.10.11/datatables.min.js"></script>
+
 </head>
 <div class="header">
 <h1>Connect 5</h1>
@@ -17,12 +23,24 @@
 
 <div id="main">
 	<div class="row">
-		<div id="leftColumn" class="col-md-7" style="background-color:green">
+		<div class="col-md-12" style="background-color:white">
+			<div class="nav-center">
+				<ul class="nav nav-tabs">
+					<li id="player1tab" class="active"><a>Player 1</a></li>
+					<li id="player2tab"><a>Player 2</a></li>
+					<li id="player3tab"><a>Player 3</a></li>
+					<li id="player4tab"><a>Player 4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="leftColumn" class="col-md-7" style="background-color:white">
 			<div id="boardContainer">
 				<table id="board" align="center"></table>
 			</div>
 		</div>
-		<div id="rightColumn" class="col-md-5" style="background-color:blue">
+		<div id="rightColumn" class="col-md-5" style="background-color:white">
 			<div id="discardContainer">
 
 			</div>
@@ -35,9 +53,10 @@
 				<button type="button" class="btn btn-danger" onclick="switchPlayer('player1')">Player 1</button>
 				<button type="button" class="btn btn-warning" onclick="switchPlayer('player2')">Player 2</button>
 			</div>
+		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12" style="background-color:red" align="center">
+		<div class="col-md-12" style="background-color:white" align="center">
 			<div class="btn-group" role="group" aria-label="...">
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(0)" >0</button>
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(12)">12</button>
@@ -45,16 +64,16 @@
 	  		<button type="button" class="btn btn-default" onclick="colorPlayable(86)">86</button>
 			</div>
 			<div id="bottomContainer">
-			<table align="center" id="draw" class="scroll">
-				<thead>
-					<tr>
-						<th style="text-align:center">Turn Number</th>
-						<th style="text-align:center">Player</th>
-						<th style="text-align:center">Card Used</th>
-						<th style="text-align:center">Card Played</th>
-					</tr>
-				</thead>
-			</table>
+				<table id="draw" align="center" class="display">
+					<thead>
+						<tr>
+							<th style="text-align:center">Turn</th>
+							<th style="text-align:center">Player</th>
+							<th style="text-align:center">Card</th>
+							<th style="text-align:center">Location</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -141,18 +160,29 @@ function resetBoard(full){
 
 function switchPlayer(playerNumber){
 	currentPlayer = playerNumber;
+
 }
 
 function getTableHeight() {
 	var height = document.getElementById("leftColumn");
-	alert(height.offsetHeight);
 	document.getElementById("rightColumn").style.height = height.offsetHeight + "px";
+}
+
+function setTableInfo() {
+	$('#draw').DataTable( {
+		"scrollY":"200px",
+		"scrollCollapse":true,
+		"paging":false,
+		"bFilter":false,
+		"bInfo":false
+	});
 }
 
 $(document).ready(function() {
 	drawBoard()
 	fillTable();
 	getTableHeight();
+	setTableInfo();
 } );
 
 </script>
